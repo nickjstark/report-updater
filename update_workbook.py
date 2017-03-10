@@ -3,7 +3,7 @@
 # Note:       could also load in from csv, Excel, etc.
 #-------------------------------------------------------------------------------
 
-import pyodbc, os, shutil, datetime, zipfile, time, sys
+import pyodbc, os, shutil, datetime, zipfile, time      #replace os with subprocess
 import dataextract as tde
 
 t0 = time.time()
