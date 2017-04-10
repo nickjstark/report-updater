@@ -3,6 +3,7 @@
 # Note:         could also load in from csv, Excel, etc.
 # -------------------------------------------------------------------------------
 
+import records
 import pyodbc
 import os               # todo: replace os with subprocess
 import shutil
@@ -50,7 +51,7 @@ sqlQuery = "SELECT * FROM [DB].[dbo].[TABLE] WHERE [COL1] in ('vala', 'valb')"  
 updated_dashboard = 'UPDATED_WB.twbx'   # updated twbx file
 
 # pull data from warehouse
-print("pull from SQL Server")
+print("Pull from Oracle")
 driver = '{SQL Server}'
 server = 'YOUR_SERVER'
 trusted_conn = 'yes'
