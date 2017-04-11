@@ -7,18 +7,88 @@ Purpose: Update Tableau workbooks by issuing commands to:
          5. Emailing newly packaged workbook/link location to desired recipients
          
 Author: Nick Stark
-        Written in Python 3.6.1
+        Written in Python 3.6
 '''
 import os
 import pyautogui
 import subprocess
-import sys
+import logging
 
-# CHANGE DIRECTORY AND LAUNCH TABLEAU WORKBOOK
+logging.basicConfig(level=logging.INFO, format='%(asctime)s.%(message)03d: %(message)s', datefmt='%H:%M:%S')
+# logging.disable(logging.info) # UNCOMMENT TO BLOCK DEBUG LOG MESSAGES
 
-os.chdir(r'C:\Users\NStark\Desktop\Nick Stark\Tableau\Scrap')
+screenRegion = pyautogui.size()
+directory = "C:\\Users\\NStark\Documents\Python Scripts\ReportUpdater\\report-updater\\autoGuiTableau"
+reportName = 'Scrap.twb'
 
-# subprocess.Popen(r'C:\Users\NStark\Desktop\Nick Stark\Tableau\Scrap\Scrap.twb', shell=True)
+# os.chdir(r'C:\Users\NStark\Documents\Python Scripts\ReportUpdater\report-updater\autoGuiTableau')
 
-output = subprocess.check_output("dir", shell=True)
-print(output)
+
+def main():
+    '''
+    Runs the entire program. 
+    :return: End result of program: Saved .twbx and an email sent with updated .twbx
+    '''
+    logging.info('Program started. Press Ctrl-C to abort at any time.')
+    logging.info('To pause mouse movement, move cursor to the very top left of the screen.')
+    logging.info('Changing current working directory...')
+    os.chdir(directory)     # CHANGES TO THE CORRECT DIRECTORY
+    logging.info('Opening Tableau...')
+    openTableau()
+    getScreenRegion()
+    navigateLogin()
+    navigateDataMenu()
+    saveAsPackagedWorkbook()
+
+
+def openTableau():
+    '''
+    Open Tableau report within the current working directory (change directory variable to change CWD)
+    :return: None, opens Tableau when called
+    '''
+    subprocess.Popen(reportName, shell=True)
+
+# output = subprocess.check_output("dir", shell=True)
+# print(output)
+
+
+def imPath(filename):
+    '''
+    A shortcut for joining the 'images'/'' file path, since it is used so often
+    :param filename: Name of the image file (.png).
+    :return: Filename with 'images/' prepended.
+    '''
+    return os.path.join('images', filename)
+
+
+def getScreenRegion():
+    '''
+    Gets the region for Tableau
+    :return: Region in which Tableau is currently open on the screen
+    '''
+    global screenRegion
+
+    # FIND TABLEAU ON USERS SCREEN
+    logging.info('Finding Tableau on the screen...')
+    region = pyautogui.locateOnScreen(imPath('data_source_tab.png'))
+    if region is None:
+        raise Exception('Could not find Tableau. Is it visible?')
+    else:
+        pyautogui.click(region)
+
+
+def navigateLogin():
+    '''
+    Click "Data Source" tab, login prompt comes up, hit tab 5 times, enter password, hit enter
+    :return: Nothing, it logs in to the database to refresh the extract
+    '''
+    pyautogui.press(['tab', 'tab', 'tab', 'tab', 'tab'])
+    pyautogui.typewrite('Mayzooper11')
+    pyautogui.press('enter')
+
+
+def navigateDataMenu():
+    
+
+if __name__ == '__main__':
+    main()
