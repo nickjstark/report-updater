@@ -20,6 +20,7 @@ logging.basicConfig(level=logging.INFO, format='%(asctime)s.%(message)03d: %(mes
 screenRegion = pyautogui.size()
 directory = "C:\\Users\\NStark\Documents\Python Scripts\ReportUpdater\\report-updater\\autoGuiTableau"
 reportName = 'Scrap.twb'
+# tableauReport = pyautogui.prompt('Please type in the full path of the Tableau report file (with .twb).')
 
 # os.chdir(r'C:\Users\NStark\Documents\Python Scripts\ReportUpdater\report-updater\autoGuiTableau')
 
@@ -35,8 +36,11 @@ def main():
     os.chdir(directory)     # CHANGES TO THE CORRECT DIRECTORY
     logging.info('Opening Tableau...')
     openTableau()
+    logging.info('Finding Tableau...')
     getScreenRegion()
+    logging.info('Logging in to database used in report...')
     navigateLogin()
+    logging.info('Refreshing data and saving workbook as packaged workbook (.twbx)...')
     navigateDataMenu()
     saveAsPackagedWorkbook()
 
@@ -47,9 +51,6 @@ def openTableau():
     :return: None, opens Tableau when called
     '''
     subprocess.Popen(reportName, shell=True)
-
-# output = subprocess.check_output("dir", shell=True)
-# print(output)
 
 
 def imPath(filename):
@@ -88,7 +89,13 @@ def navigateLogin():
 
 
 def navigateDataMenu():
-    
+    # TODO: Finish function
+
+
+def saveAsPackagedWorkbook():
+    # TODO: Finish function
 
 if __name__ == '__main__':
     main()
+
+# TODO: Email with attached .twbx file
