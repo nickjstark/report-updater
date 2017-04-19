@@ -87,7 +87,7 @@ def navigateLogin():
     '''
     logging.info('Logging in to database used in report...')
     pyautogui.press(['tab', 'tab', 'tab', 'tab', 'tab'], interval=0.5)
-    pyautogui.typewrite('Mayzooper11')
+    pyautogui.typewrite('')                  # ENTER PASSWORD OR PROMPT FOR IT
     pyautogui.press('enter')
 
 
